@@ -17,7 +17,8 @@ class DishDetail extends Component{
             let commentDate = (new Date(comment.date)).toDateString();
             return(<div>
                         <li className='no_bullet text-center text-md-left'>{comment.comment}</li>
-                        <li className='disc text-center text-md-left'>{comment.author}, {commentDate}</li>
+                        <li className='no_bullet text-center text-md-left'>--{comment.author}, {commentDate}</li>
+                        <br></br>
                     </div>);
         });
 
@@ -47,7 +48,8 @@ class DishDetail extends Component{
                         </Card>
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        <h2>Comments</h2>
+                        <h2 className={"text-md-left"}>Comments</h2>
+                        <br></br>
                             {this.renderComments(dish)}
 
 

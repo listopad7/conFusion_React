@@ -89,10 +89,10 @@ function RenderComments({comments}) {
                         </div>
                         <div className="col-12 col-md-5 m-1">
                             <RenderComments comments={props.comments}
-                                            addComment={props.addComment}
+                                            postComment={props.addComment}
                                             dishId={props.dish.id}
                             />
-                            <CommentComponent dishId={props.dish.id} addComment={props.addComment} />
+                            <CommentComponent dishId={props.dish.id} postComment={props.postComment} />
                         </div>
                     </div>
 
@@ -136,9 +136,10 @@ class CommentComponent extends Component {
     handleSubmit(values) {
 
         this.toggleModal();
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
-        this.props.resetFeedbackForm();
+
         //event.preventDefault();
 
     }

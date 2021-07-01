@@ -7,37 +7,44 @@ import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { Control, Form, Errors, actions } from 'react-redux-form';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
+
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
 
-
-
-
     function RenderDish({dish}){
         return(
         <div className>
-            <Card>
-                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Card>
+                    <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         </div>);
     }
 
 
 
 function RenderComments({comments}) {
+
             const comment = comments.map((comment) => {
             let commentDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)));
-            return(<div>
+            return(<Fade in>
                         <li className='no_bullet text-center text-md-left'>{comment.comment}</li>
                         <li className='no_bullet text-center text-md-left'>--{comment.author}, {commentDate}</li>
                         <br></br>
-                    </div>);
+                    </Fade>);
             });
 
             return(

@@ -4,8 +4,8 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Row, Label
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import {Control, Errors, LocalForm} from "react-redux-form";
 import { Loading } from './LoadingComponent';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -132,9 +132,11 @@ class CommentComponent extends Component {
     }
 
     handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+
         this.toggleModal();
+        console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        this.props.resetFeedbackForm();
         //event.preventDefault();
 
     }
@@ -149,7 +151,7 @@ class CommentComponent extends Component {
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody className="m-3">
-                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                        <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="rating">Rating</Label>
                                 <Control.select model=".rating" id="rating" name="rating"
@@ -190,7 +192,7 @@ class CommentComponent extends Component {
                             </Row>
 
                             <Button type="submit" value="submit" color="primary">Submit</Button>
-                        </LocalForm>
+                        </Form>
 
                     </ModalBody>
                 </Modal>

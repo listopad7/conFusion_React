@@ -1,30 +1,53 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {Loading} from "./LoadingComponent";
+import { baseUrl } from '../shared/baseUrl';
 
 
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader} />
-        );
-    });
+    const leaders = props.leaders.leaders.map((leader) => {
+                        if (props.leaders.isLoading) {
+                            return(
+                            <div className="container">
+                                <div className="row">*/}
+                             <Loading />
+                             </div>
+                             </div>
+                            );
+                        }
+                        else if (props.leaders.errMess) {
+                            return(
+                            <div className="container">
+                            <div className="row">*/}
+                            <div className="col-12">*/}
+                             <h4>{props.leaders.errMess}</h4>
+                             </div>
+                             </div>
+                             </div>
+                        );
+                         }
+                         else
+                             return (
+                             <RenderLeader leader={leader} />
+                             );
+                          });
 
     function RenderLeader({leader}){
         return(
             <Media>
                 <Media left>
-                    <Media object src = {leader.image}   alt="image" />
+                    <Media object src = {baseUrl + leader.image}   alt="image" />
                 </Media>
                 <Media body className="m-3 text-md-left">
-                    <Media heading>{leader.name}</Media>
-                    {leader.designation}
-                    <p></p>
-                    {leader.description}
-                    <br></br>
-                    <p></p>
+                        <Media heading>{leader.name}</Media>
+                        {leader.designation}
+                        <p></p>
+                        {leader.description}
+                        <br></br>
+                        <p></p>
                 </Media>
             </Media>
 
